@@ -1,7 +1,7 @@
 [build]
-  command = "npm install && npm run dev"
+  command = "npm install && npm run build"
+  publish = "dist" # or "build" depending on framework
   functions = "functions"
-  publish = "public"
 
 [dev]
   command = "npm run dev"
