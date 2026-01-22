@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diet Planner - Your Personal Nutrition Guide</title>
+  <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">🥗 DietPlanner</div>
+      <div class="nav-links">
+        <a href="#" class="nav-link">Home</a>
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#" class="nav-link login-btn" onclick="toggleLoginModal(); return false;">Login</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Your Personal AI-Powered Diet Planner</h1>
+        <p>Generate customized 7-day meal plans based on your fitness goals and dietary preferences</p>
+        <button class="btn btn-primary" onclick="scrollToSignup()">Get Started</button>
+      </div>
+      <div class="hero-image">
+        <div class="image-placeholder">🍽️</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="features">
+    <div class="container">
+      <h2>Why Choose DietPlanner?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>Goal-Based Planning</h3>
+          <p>Create meal plans tailored to your goal: lose weight, gain muscle, or maintain</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🥦</div>
+          <h3>Dietary Preferences</h3>
+          <p>Support for vegetarian, non-vegetarian, and mixed dietary preferences</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Smart Recommendations</h3>
+          <p>AI-powered meal suggestions powered by Edamam API</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💾</div>
+          <h3>Save & Track</h3>
+          <p>Save your meal plans and track your progress over time</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="signup" class="signup-section">
+    <div class="container">
+      <h2>Join DietPlanner Today</h2>
+      <div class="signup-container">
+        <div class="signup-form-wrapper">
+          <h3>Create Account</h3>
+          <form id="signupForm" onsubmit="handleSignup(event)">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" id="username" placeholder="Enter your username" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+            <div class="form-group">
+              <label for="goal">Fitness Goal</label>
+              <select id="goal" required>
+                <option value="">Select a goal</option>
+                <option value="lose">Lose Weight</option>
+                <option value="maintain">Maintain Weight</option>
+                <option value="gain">Gain Weight</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="dietary">Dietary Preference</label>
+              <select id="dietary" required>
+                <option value="">Select preference</option>
+                <option value="veg">Vegetarian</option>
+                <option value="non-veg">Non-Vegetarian</option>
+                <option value="both">Both</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+          </form>
+          <p class="login-link">Already have an account? <a href="#" onclick="toggleLoginModal()">Login here</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="toggleLoginModal()">&times;</span>
+      <h2>Login to DietPlanner</h2>
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label for="loginEmail">Email</label>
+          <input type="email" id="loginEmail" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" placeholder="Enter your password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2024 DietPlanner. All rights reserved. | Powered by Edamam API</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meal Planner - DietPlanner</title>
+  <link rel="stylesheet" href="styles/styles.css">
+  <link rel="stylesheet" href="styles/dashboard.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">🥗 DietPlanner</div>
+      <div class="nav-links">
+        <a href="#" class="nav-link">Dashboard</a>
+        <button class="btn btn-logout" onclick="handleLogout()">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <h3>Menu</h3>
+        <ul>
+          <li><a href="#" class="sidebar-link active" onclick="showSection('generate')">Generate Plan</a></li>
+          <li><a href="#" class="sidebar-link" onclick="showSection('myplans')">My Plans</a></li>
+          <li><a href="#" class="sidebar-link" onclick="showSection('profile')">Profile</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <!-- Generate Section -->
+      <section id="generate" class="content-section active">
+        <div class="section-header">
+          <h2>Generate 7-Day Meal Plan</h2>
+          <p>Create a personalized meal plan based on your goals and preferences</p>
+        </div>
+
+        <div class="generate-form-wrapper">
+          <form id="generateForm" onsubmit="handleGeneratePlan(event)">
+            <div class="form-group">
+              <label for="planName">Plan Name</label>
+              <input type="text" id="planName" placeholder="e.g., Summer Weight Loss Plan" required>
+            </div>
+            <div class="form-group">
+              <label for="planGoal">Fitness Goal</label>
+              <select id="planGoal" required>
+                <option value="">Select a goal</option>
+                <option value="lose">Lose Weight</option>
+                <option value="maintain">Maintain Weight</option>
+                <option value="gain">Gain Weight</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="planDietary">Dietary Preference</label>
+              <select id="planDietary" required>
+                <option value="">Select preference</option>
+                <option value="veg">Vegetarian</option>
+                <option value="non-veg">Non-Vegetarian</option>
+                <option value="both">Both</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary" id="generateBtn">Generate Plan</button>
+          </form>
+        </div>
+
+        <div id="mealPlanDisplay" class="meal-plan-display" style="display: none;">
+          <div id="mealPlanContent"></div>
+          <button class="btn btn-success" onclick="saveMealPlan()">Save This Plan</button>
+        </div>
+
+        <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+          <div class="spinner"></div>
+          <p>Generating your meal plan... This may take a moment</p>
+        </div>
+      </section>
+
+      <!-- My Plans Section -->
+      <section id="myplans" class="content-section">
+        <div class="section-header">
+          <h2>My Saved Meal Plans</h2>
+          <p>View and manage your saved meal plans</p>
+        </div>
+        <div id="mealPlansList" class="meal-plans-list"></div>
+      </section>
+
+      <!-- Profile Section -->
+      <section id="profile" class="content-section">
+        <div class="section-header">
+          <h2>My Profile</h2>
+          <p>Update your personal information</p>
+        </div>
+        <form id="profileForm" onsubmit="handleProfileUpdate(event)" class="profile-form">
+          <div class="form-group">
+            <label for="profileAge">Age</label>
+            <input type="number" id="profileAge" placeholder="Your age">
+          </div>
+          <div class="form-group">
+            <label for="profileWeight">Weight (kg)</label>
+            <input type="number" id="profileWeight" placeholder="Your weight" step="0.1">
+          </div>
+          <div class="form-group">
+            <label for="profileHeight">Height (cm)</label>
+            <input type="number" id="profileHeight" placeholder="Your height">
+          </div>
+          <div class="form-group">
+            <label for="profileGoal">Fitness Goal</label>
+            <select id="profileGoal">
+              <option value="">Select a goal</option>
+              <option value="lose">Lose Weight</option>
+              <option value="maintain">Maintain Weight</option>
+              <option value="gain">Gain Weight</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="profileDietary">Dietary Preference</label>
+            <select id="profileDietary">
+              <option value="">Select preference</option>
+              <option value="veg">Vegetarian</option>
+              <option value="non-veg">Non-Vegetarian</option>
+              <option value="both">Both</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Update Profile</button>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <!-- Meal Details Modal -->
+  <div id="mealDetailModal" class="modal">
+    <div class="modal-content modal-large">
+      <span class="close" onclick="closeMealDetailModal()">&times;</span>
+      <div id="mealDetailContent"></div>
+    </div>
+  </div>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
