@@ -5,8 +5,12 @@
   "main": "server/app.js",
   "scripts": {
     "start": "node server/app.js",
-    "dev": "node server/app.js",
-    "db:init": "node server/db/init.js"
+    "dev": "nodemon server/app.js",
+    "db:init": "node server/db/init.js",
+    "build": "npm install"
+  },
+  "engines": {
+    "node": "20.x"
   },
   "keywords": [
     "diet",
@@ -31,4 +35,3 @@
     "nodemon": "^3.0.2"
   }
 }
-
