@@ -1,4 +1,7 @@
-const API_URL = 'http://localhost:3000/api';
+// Detect environment and set correct API URL
+const API_URL = window.location.hostname === 'localhost'
+  ? 'http://localhost:3000/api'
+  : `${window.location.origin}/api`;
 
 function scrollToSignup() {
   document.getElementById('signup').scrollIntoView({ behavior: 'smooth' });
@@ -109,3 +112,5 @@ function showAlert(message, type) {
     alertDiv.remove();
   }, 5000);
 }
+
+
