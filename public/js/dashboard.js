@@ -1,21 +1,30 @@
-const API_URL = 'http://localhost:3000/api';
+// Detect environment and set correct API URL
+const API_URL = window.location.hostname === 'localhost'
+  ? 'http://localhost:3000/api'
+  : `${window.location.origin}/api`;
 
 let currentMealPlan = null;
 let currentMealPlanId = null;
+let authCheckInProgress = false;
 
 // Check if user is logged in
 function checkAuth() {
+  // Prevent multiple simultaneous auth checks
+  if (authCheckInProgress) return;
+  
   const token = localStorage.getItem('token');
   if (!token) {
     window.location.href = 'index.html';
     return;
   }
+  
   loadUserProfile();
 }
 
 async function loadUserProfile() {
   const token = localStorage.getItem('token');
   try {
+    authCheckInProgress = true;
     const response = await fetch(`${API_URL}/auth/profile`, {
       headers: {
         'Authorization': `Bearer ${token}`
@@ -23,8 +32,12 @@ async function loadUserProfile() {
     });
 
     if (!response.ok) {
-      localStorage.removeItem('token');
-      window.location.href = 'index.html';
+      if (response.status === 401) {
+        // Token expired or invalid
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location.href = 'index.html';
+      }
       return;
     }
 
@@ -32,6 +45,8 @@ async function loadUserProfile() {
     populateProfileForm(user);
   } catch (error) {
     console.error('Error loading profile:', error);
+  } finally {
+    authCheckInProgress = false;
   }
 }
 
@@ -440,6 +455,25 @@ function showSection(sectionName) {
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('🔍 Dashboard loaded, checking authentication...');
+  const token = localStorage.getItem('token');
+  console.log('Token exists:', !!token);
+  
+  if (!token) {
+    console.log('❌ No token found, redirecting to login');
+    window.location.href = 'index.html';
+    return;
+  }
+  
   checkAuth();
   document.querySelector('.sidebar-link').classList.add('active');
+  
+  // Periodically verify token is still valid (every 5 minutes)
+  setInterval(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.log('❌ Token expired, redirecting to login');
+      window.location.href = 'index.html';
+    }
+  }, 5 * 60 * 1000); // 5 minutes
 });
