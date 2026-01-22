@@ -1,18 +1,33 @@
 [build]
-  command = ""
-  publish = "public"
+  command = "npm install"
   functions = "functions"
+  publish = "public"
 
 [dev]
   command = "npm run dev"
   port = 3000
 
+# Rewrite rules for API calls
 [[redirects]]
   from = "/api/*"
-  to = "/.netlify/functions/api/:splat"
+  to = "/.netlify/functions/server/:splat"
   status = 200
+  force = false
 
+# Single Page App rewrite
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
+# Headers for CORS and security
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Content-Type = "application/json"
